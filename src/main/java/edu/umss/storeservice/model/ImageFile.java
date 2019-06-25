@@ -5,42 +5,70 @@ import edu.umss.storeservice.dto.ImageFileDto;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "image_file")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "GetAllImageFile",
+                procedureName = "GetAllImageFile",
+                resultClasses = ImageFile.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "DeleteImageFileById",
+                procedureName = "DeleteImageFileById",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "GetImageFileById",
+                procedureName = "GetImageFileById",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class)
+                },
+                resultClasses = ImageFile.class
+        )
+})
 public class ImageFile extends ModelBase<ImageFileDto>{
-    private String File_Image_Name;
-    private String Format_Image;
-    private String URL_Image;
-    @ManyToOne(optional = false)
-    private Product product;
+    private String fileImageName;
+    private String formatImage;
+    private String urlImage;
+    private Boolean isDeleted;
 
-    public String getFile_Image_Name() {
-        return File_Image_Name;
+    @Basic
+    public String getFileImageName() {
+        return fileImageName;
     }
 
-    public void setFile_Image_Name(String file_Image_Name) {
-        File_Image_Name = file_Image_Name;
+    public void setFileImageName(String fileImageName) {
+        this.fileImageName = fileImageName;
     }
 
-    public String getFormat_Image() {
-        return Format_Image;
+    @Basic
+    public String getFormatImage() {
+        return formatImage;
     }
 
-    public void setFormat_Image(String format_Image) {
-        Format_Image = format_Image;
+    public void setFormatImage(String formatImage) {
+        this.formatImage = formatImage;
     }
 
-    public String getURL_Image() {
-        return URL_Image;
+    @Basic
+    public String getUrlImage() {
+        return urlImage;
     }
 
-    public void setURL_Image(String URL_Image) {
-        this.URL_Image = URL_Image;
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
     }
 
-    public Product getProduct() {
-        return product;
+    @Basic
+    public Boolean getDeleted() {
+        return isDeleted;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
+
 }

@@ -1,4 +1,10 @@
+/**
+ * @author: toretovoid
+ */
+
 package edu.umss.storeservice.repository;
 
-public interface ProductRepository {
+import edu.umss.storeservice.model.Product;
+
+public class ProductRepository extends StoredProcedureRepositoryImpl<Product> {
 }

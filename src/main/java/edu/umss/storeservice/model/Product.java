@@ -2,37 +2,76 @@ package edu.umss.storeservice.model;
 
 import edu.umss.storeservice.dto.ProductDto;
 
-
-import javax.persistence.Entity;
-import java.math.BigDecimal;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "product")
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(
+                name = "GetAllProduct",
+                procedureName = "GetAllProduct",
+                resultClasses = Product.class
+        ),
+        @NamedStoredProcedureQuery(
+                name = "DeleteProductById",
+                procedureName = "DeleteProductById",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class),
+                        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
+                }
+        ),
+        @NamedStoredProcedureQuery(
+                name = "GetProductById",
+                procedureName = "GetProductById",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class)
+                },
+                resultClasses = Product.class
+        )
+})
 public class Product extends ModelBase<ProductDto>{
-    private String Name_Product;
-    private Integer Quantity_Product;
-    private BigDecimal Unit_Cost_Product;
+    private String nameProduct;
+    private Integer quantityProduct;
+    private Integer unitCostProduct;
+    private Boolean isDeleted;
 
-    public String getName_Product() {
-        return Name_Product;
+    @Basic
+    @Column(name = "Name_Product")
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setName_Product(String name_Product) {
-        Name_Product = name_Product;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
-    public Integer getQuantity_Product() {
-        return Quantity_Product;
+    @Basic
+    @Column(name = "Quantity_Product")
+    public Integer getQuantityProduct() {
+        return quantityProduct;
     }
 
-    public void setQuantity_Product(Integer quantity_Product) {
-        Quantity_Product = quantity_Product;
+    public void setQuantityProduct(Integer quantityProduct) {
+        this.quantityProduct = quantityProduct;
     }
 
-    public BigDecimal getUnit_Cost_Product() {
-        return Unit_Cost_Product;
+    @Basic
+    @Column(name = "Unit_Cost_Product")
+    public Integer getUnitCostProduct() {
+        return unitCostProduct;
     }
 
-    public void setUnit_Cost_Product(BigDecimal unit_Cost_Product) {
-        Unit_Cost_Product = unit_Cost_Product;
+    public void setUnitCostProduct(Integer unitCostProduct) {
+        this.unitCostProduct = unitCostProduct;
+    }
+
+    @Basic
+    @Column(name = "Is_deleted")
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

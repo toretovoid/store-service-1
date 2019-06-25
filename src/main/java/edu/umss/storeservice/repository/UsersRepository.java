@@ -1,4 +1,10 @@
+/**
+ * @author: toretovoid
+ */
+
 package edu.umss.storeservice.repository;
 
-public interface UsersRepository {
+import edu.umss.storeservice.model.Users;
+
+public class UsersRepository extends StoredProcedureRepositoryImpl<Users> {
 }

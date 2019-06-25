@@ -1,42 +1,41 @@
 package edu.umss.storeservice.model;
 
-import edu.umss.storeservice.dto.ProviderDto;
+import edu.umss.storeservice.dto.ClientDto;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
-@Table(name = "provider")
+@Table(name = "client")
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(
-                name = "GetAllProvider",
-                procedureName = "GetAllProvider",
-                resultClasses = Provider.class
+                name = "GetAllClient",
+                procedureName = "GetAllClient",
+                resultClasses = Client.class
         ),
         @NamedStoredProcedureQuery(
-                name = "DeleteProviderById",
-                procedureName = "DeleteProviderById",
+                name = "DeleteClientById",
+                procedureName = "DeleteClientById",
                 parameters = {
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class),
                         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "result", type = Boolean.class)
                 }
         ),
         @NamedStoredProcedureQuery(
-                name = "GetProviderById",
-                procedureName = "GetProviderById",
+                name = "GetClientById",
+                procedureName = "GetClientById",
                 parameters = {
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "id", type = Long.class)
                 },
-                resultClasses = Provider.class
+                resultClasses = Client.class
         )
 })
-public class Provider extends ModelBase<ProviderDto>{
+public class Client extends ModelBase<ClientDto>{
     private String firstName;
     private String lastName;
-    private String corporateName;
-    private Integer nitProvee;
-    private Integer ciProvee;
-    private Timestamp birthDate;
+    private String email;
+    private String telephone;
+    private String cardNumber;
+    private String cardPin;
     private Boolean isDeleted;
 
     @Basic
@@ -60,43 +59,43 @@ public class Provider extends ModelBase<ProviderDto>{
     }
 
     @Basic
-    @Column(name = "Corporate_Name")
-    public String getCorporateName() {
-        return corporateName;
+    @Column(name = "Email")
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorporateName(String corporateName) {
-        this.corporateName = corporateName;
-    }
-
-    @Basic
-    @Column(name = "Nit_provee")
-    public Integer getNitProvee() {
-        return nitProvee;
-    }
-
-    public void setNitProvee(Integer nitProvee) {
-        this.nitProvee = nitProvee;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Basic
-    @Column(name = "Ci_provee")
-    public Integer getCiProvee() {
-        return ciProvee;
+    @Column(name = "Telephone")
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setCiProvee(Integer ciProvee) {
-        this.ciProvee = ciProvee;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     @Basic
-    @Column(name = "Birth_date")
-    public Timestamp getBirthDate() {
-        return birthDate;
+    @Column(name = "Card_Number")
+    public String getCardNumber() {
+        return cardNumber;
     }
 
-    public void setBirthDate(Timestamp birthDate) {
-        this.birthDate = birthDate;
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    @Basic
+    @Column(name = "Card_PIN")
+    public String getCardPin() {
+        return cardPin;
+    }
+
+    public void setCardPin(String cardPin) {
+        this.cardPin = cardPin;
     }
 
     @Basic
@@ -108,7 +107,4 @@ public class Provider extends ModelBase<ProviderDto>{
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
-
-    @ManyToOne
-    private Users users;
 }
